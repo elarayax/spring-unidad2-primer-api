@@ -3,6 +3,7 @@ package com.example.unidad2.semana2.duoc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +66,17 @@ public class productoController {
                     p.setPrecio(productoActualizado.getPrecio());
                 }
                 return p;
+            }
+        }
+        throw new RuntimeException("Producto con ID " + id + " no encontrado.");
+    }
+
+    @DeleteMapping("/productos/{id}")
+    public String eliminarProducto(@PathVariable int id) {
+        for (producto p : listaProducto) {
+            if (p.getID() == id) {
+                listaProducto.remove(p); // Elimina el producto
+                return "Producto con ID " + id + " ha sido eliminado.";
             }
         }
         throw new RuntimeException("Producto con ID " + id + " no encontrado.");
