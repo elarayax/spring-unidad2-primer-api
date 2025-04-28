@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.unidad2.semana2.duoc.modelo.producto;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/productos")
 public class productoController {
     ArrayList<producto> listaProducto = new ArrayList<>();
 
-    @GetMapping("/productos/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
     public producto buscar(@PathVariable int id) {
         for (producto p : listaProducto) {
@@ -32,18 +32,18 @@ public class productoController {
         throw new RuntimeException("Producto con ID " + id + " no encontrado.");
     }
     
-    @PostMapping("/productos")
+    @PostMapping
     public producto agregarProducto(@RequestBody producto nuevoProducto) {
         listaProducto.add(nuevoProducto);
         return nuevoProducto;
     }
 
-    @GetMapping("/productos")
+    @GetMapping
     public List<producto> listarProductos() {
         return listaProducto;
     }
 
-    @PutMapping("/productos/{id}")
+    @PutMapping("/{id}")
     public producto actualizarProducto(@PathVariable int id, @RequestBody producto productoActualizado) {
         for (producto p : listaProducto) {
             if (p.getID() == id) {
@@ -55,7 +55,7 @@ public class productoController {
         throw new RuntimeException("Producto con ID " + id + " no encontrado.");
     }
 
-    @PatchMapping("/productos/{id}")
+    @PatchMapping("/{id}")
     public producto actualizarParcialProducto(@PathVariable int id, @RequestBody producto productoActualizado) {
         for (producto p : listaProducto) {
             if (p.getID() == id) {
@@ -71,7 +71,7 @@ public class productoController {
         throw new RuntimeException("Producto con ID " + id + " no encontrado.");
     }
 
-    @DeleteMapping("/productos/{id}")
+    @DeleteMapping("/{id}")
     public String eliminarProducto(@PathVariable int id) {
         for (producto p : listaProducto) {
             if (p.getID() == id) {
